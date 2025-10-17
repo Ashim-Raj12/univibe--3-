@@ -1,0 +1,31 @@
+.card {
+  position: relative;
+  /* Ensure children are stacked correctly */
+  z-index: 1;
+}
+
+.card--border-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--glow-radius, 300px) circle at var(--glow-x, 0%) var(--glow-y, 0%),
+    rgba(var(--glow-color, 37, 99, 235), 0.5),
+    transparent 40%
+  );
+  opacity: var(--glow-intensity, 0);
+  transition: opacity 0.3s ease;
+  /* Place glow behind the card content but above the background */
+  z-index: -1;
+}
+
+/* Ensure card content is rendered above the pseudo-element glow */
+.card > * {
+  position: relative;
+  z-index: 2;
+}

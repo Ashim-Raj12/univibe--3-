@@ -1,0 +1,7 @@
+{
+  "name": "UniVibe",
+  "description": "UniVibe helps you find future classmates, discover compatible roommates, and build friendships before you even step on campus. Your college journey starts here.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
