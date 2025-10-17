@@ -25,7 +25,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const fetchProfile = useCallback(async (user: User | null) => {
-        if (user) {
+         if (user) {
+        try {
             const { data, error } = await supabase
                 .from('profiles')
                 .select('*')
@@ -33,14 +34,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 .single();
 
             if (error) {
-                console.error('Error fetching profile:', error);
                 setProfile(null);
             } else {
                 setProfile(data);
             }
-        } else {
+        } catch (error) {
             setProfile(null);
         }
+    } else {
+        setProfile(null);
+    }
     }, []);
 
     useEffect(() => {
