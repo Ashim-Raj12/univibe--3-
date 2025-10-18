@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from 'react-dom';
 import { supabase } from "../services/supabase";
 import { useAuth } from "../hooks/useAuth";
 import Spinner from "./Spinner";
@@ -20,6 +21,14 @@ const PostAssignmentModal: React.FC<PostAssignmentModalProps> = ({
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -107,15 +116,20 @@ const PostAssignmentModal: React.FC<PostAssignmentModalProps> = ({
 
   const labelClasses = "block text-sm font-medium text-text-body mb-2";
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 overflow-y-auto"
-      style={{ minHeight: "100vh" }}
-      onClick={onClose}
+      className="fixed inset-0 z-[10000] flex items-center justify-center p-4"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
+      <div 
+        className="absolute inset-0 bg-black/60" 
+        onClick={onClose}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+      />
       <div
-        className="bg-background w-full max-w-lg rounded-2xl shadow-xl mb-8 flex flex-col max-h-[calc(100vh-4rem)]"
+        className="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl z-10 flex flex-col"
         onClick={(e) => e.stopPropagation()}
+        style={{ maxHeight: '90vh' }}
       >
         {/* Header */}
         <div className="p-6 border-b border-slate-200 flex justify-between items-center flex-shrink-0">
@@ -294,7 +308,7 @@ const PostAssignmentModal: React.FC<PostAssignmentModalProps> = ({
         </div>
 
         {/* Footer - Fixed at bottom */}
-        <div className="p-6 border-t border-slate-200 flex justify-end gap-3 flex-shrink-0 bg-background">
+        <div className="p-6 border-t border-slate-200 flex justify-end gap-3 flex-shrink-0 bg-white">
           <button
             type="button"
             onClick={onClose}
@@ -314,6 +328,8 @@ const PostAssignmentModal: React.FC<PostAssignmentModalProps> = ({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default PostAssignmentModal;
