@@ -397,6 +397,7 @@ export interface Assignment {
     file_name: string | null;
     submitted_file_url: string | null;
     submitted_file_name: string | null;
+    submitted_link: string | null;
     submitted_at: string | null;
 }
 
