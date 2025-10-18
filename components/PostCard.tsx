@@ -4,6 +4,8 @@ import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../services/supabase';
 import { formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import CommentSection from './CommentSection';
 import EditPostForm from './EditPostForm';
 import Spinner from './Spinner';
@@ -300,7 +302,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostDeleted, onPostUpdated,
                 <>
                     <div className="my-4">
                         {title && <h2 className="text-xl font-bold mb-2 text-text-heading">{title}</h2>}
-                        {displayContent && <p className="text-text-body whitespace-pre-wrap leading-relaxed">{displayContent}</p>}
+                        {displayContent && <div className="text-text-body leading-relaxed"><ReactMarkdown remarkPlugins={[remarkGfm]}>{displayContent}</ReactMarkdown></div>}
                     </div>
 
                     {post.image_url && !isFilePost && (

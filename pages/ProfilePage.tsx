@@ -173,8 +173,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ profile, onClose, o
     const isUsernameSettable = !profile.username;
 
     return (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-0 sm:p-4" onClick={onClose}>
-            <div className="bg-background w-full h-full flex flex-col sm:h-auto sm:rounded-lg shadow-xl sm:max-w-lg sm:max-h-[90vh]" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/60 z-50 flex  justify-center p-0 sm:p-4" onClick={onClose}>
+            <div className="bg-background w-full h-[100vh] flex flex-col sm:h-auto sm:rounded-lg shadow-xl sm:max-w-lg sm:max-h-[90vh]" onClick={e => e.stopPropagation()}>
                 <div className="p-4 border-b border-slate-200 flex justify-between items-center flex-shrink-0">
                     <h2 className="text-xl font-bold text-text-heading">Edit Profile</h2>
                     <button onClick={onClose} className="text-text-muted hover:text-text-heading">
