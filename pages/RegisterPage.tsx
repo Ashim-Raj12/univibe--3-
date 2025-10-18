@@ -393,7 +393,7 @@ const RegisterPage: React.FC = () => {
                                      <div className="animate-fade-in-up space-y-4" style={{animationDuration: '0.5s'}}>
                                         <div>
                                             <label className="block text-sm font-medium text-text-body mb-2" htmlFor="state">
-                                                State / Union Territory
+                                                Home State / Union Territory
                                             </label>
                                             <select
                                                 id="state"
